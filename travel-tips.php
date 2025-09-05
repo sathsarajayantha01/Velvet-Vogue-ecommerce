@@ -1,26 +1,12 @@
 <?php
-// Include database connection
-require_once 'config.php';
-
 // Start session if not already started
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Check if user is logged in
-$isLoggedIn = isset($_SESSION['user_id']) && isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
-
-// Get user data if logged in
+// For demo purposes, disable database connection
+$isLoggedIn = false;
 $userData = [];
-if($isLoggedIn) {
-    $userData = [
-        'username' => $_SESSION['username'] ?? '',
-        'first_name' => $_SESSION['first_name'] ?? '',
-        'last_name' => $_SESSION['last_name'] ?? '',
-        'email' => $_SESSION['email'] ?? '',
-        'role' => $_SESSION['role'] ?? 'customer'
-    ];
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">

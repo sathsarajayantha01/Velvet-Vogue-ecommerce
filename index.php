@@ -1,69 +1,25 @@
 <?php
-// Include database connection
-require_once 'config.php';
-
 // Start session if not already started
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Check if user is logged in
-$isLoggedIn = isset($_SESSION['user_id']) && isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
-
-// Get user data if logged in
+// For demo purposes, disable database connection and create mock data
+$isLoggedIn = false;
 $userData = [];
-if($isLoggedIn) {
-    $userData = [
-        'username' => $_SESSION['username'] ?? '',
-        'first_name' => $_SESSION['first_name'] ?? '',
-        'last_name' => $_SESSION['last_name'] ?? '',
-        'email' => $_SESSION['email'] ?? '',
-        'role' => $_SESSION['role'] ?? 'customer'
-    ];
-}
 
-// Get cart count from session
-$cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
-
-// Function to get featured products
+// Mock functions for demo
 function getFeaturedProducts($conn, $limit = 4) {
-    $products = [];
-    $sql = "SELECT * FROM products WHERE featured = 1 AND status = 'active' LIMIT ?";
-    
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $limit);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    
-    while($row = $result->fetch_assoc()) {
-        $products[] = $row;
-    }
-    
-    $stmt->close();
-    return $products;
+    return []; // Empty array for demo
 }
 
-// Function to get new arrivals
 function getNewArrivals($conn, $limit = 4) {
-    $products = [];
-    $sql = "SELECT * FROM products WHERE new_arrival = 1 AND status = 'active' ORDER BY created_at DESC LIMIT ?";
-    
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $limit);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    
-    while($row = $result->fetch_assoc()) {
-        $products[] = $row;
-    }
-    
-    $stmt->close();
-    return $products;
+    return []; // Empty array for demo
 }
 
-// Get featured products and new arrivals
-$featuredProducts = getFeaturedProducts($conn);
-$newArrivals = getNewArrivals($conn);
+$featuredProducts = [];
+$newArrivals = [];
+?>
 ?>
 <!DOCTYPE html>
 <html lang="en">
